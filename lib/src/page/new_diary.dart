@@ -60,14 +60,14 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
           for (int i = 0; i < stockList.length; i++) _stockList(i),
           addButton(),
           _divider(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: TextFormField(
-              decoration: InputDecoration(
-                  hintText: '종목명을 입력하세요. ex) #테슬라 #삼성전자',
-                  border: InputBorder.none),
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 16),
+          //   child: TextFormField(
+          //     decoration: InputDecoration(
+          //         hintText: '종목명을 입력하세요. ex) #테슬라 #삼성전자',
+          //         border: InputBorder.none),
+          //   ),
+          // ),
           saveButton(),
         ],
       ),
