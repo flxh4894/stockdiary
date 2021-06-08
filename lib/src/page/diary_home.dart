@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stockdiary/src/controller/ad_controller.dart';
+import 'package:stockdiary/src/admob/ad_banner.dart';
 import 'package:stockdiary/src/controller/stock_controller.dart';
 import 'package:stockdiary/src/page/calendar.dart';
 import 'package:stockdiary/src/page/month_memos.dart';
 import 'package:stockdiary/src/page/stock_list.dart';
 
-import 'ad_test.dart';
 
 class DiaryHomePage extends StatefulWidget {
   const DiaryHomePage({Key key}) : super(key: key);
@@ -17,7 +16,6 @@ class DiaryHomePage extends StatefulWidget {
 class _DiaryHomePageState extends State<DiaryHomePage> {
   int _currentIndex = 0;
   final List<Widget> _children = [MonthMemoPage(), StockListPage(), CalendarPage()];
-  // final List<Widget> _children = [MonthMemoPage(), StockListPage(), AdTestPage()];
 
   void _onTap(int index) {
     if(index == 1) {
@@ -37,8 +35,7 @@ class _DiaryHomePageState extends State<DiaryHomePage> {
           Expanded(
             child: _children[_currentIndex],
           ),
-          // AdTestPage(),
-          SizedBox(height: 5)
+          AdMobBannerAd()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

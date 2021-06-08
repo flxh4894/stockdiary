@@ -5,8 +5,6 @@ import 'package:stockdiary/src/model/stock.dart';
 import 'package:stockdiary/src/page/chart.dart';
 import 'package:stockdiary/src/utils/common_utils.dart';
 
-import 'ad_test.dart';
-
 class StockDetailPage extends StatelessWidget {
   final CommonUtils _utils = CommonUtils();
   final StockController _stockController = Get.put(StockController());
@@ -42,15 +40,11 @@ class StockDetailPage extends StatelessWidget {
                     int.parse(date.substring(4, 6)),
                     int.parse(date.substring(6, 8)));
 
-                print('$datetime $dealType $price $amount');
-
-                // return Text('??');
                 return _stockList(_utils.getDate(datetime), dealType, price,
                     amount, prePrice);
               }),
         )),
         SizedBox(height: 5),
-        AdTestPage(),
         SizedBox(height: 10),
       ],
     );

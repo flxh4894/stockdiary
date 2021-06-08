@@ -28,7 +28,6 @@ class StockController extends GetxController {
   }
 
   void getAllStockList() async {
-    print('???');
     final db = await database;
     List list = await db.rawQuery("SELECT name, COUNT(name) AS amount FROM stock_list GROUP BY name");
     allStockList(list);

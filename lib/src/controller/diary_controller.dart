@@ -5,7 +5,6 @@ import 'package:stockdiary/src/helper/db_helper.dart';
 import 'package:stockdiary/src/model/diary.dart';
 import 'package:stockdiary/src/model/stock.dart';
 import 'package:stockdiary/src/page/diary_home.dart';
-import 'package:stockdiary/src/page/month_memos.dart';
 
 class DiaryController extends GetxController {
   final MonthDiaryController _monthDiaryController =
@@ -57,7 +56,6 @@ class DiaryController extends GetxController {
     var info = await db.rawQuery('SELECT * FROM diary WHERE id = $id');
     diaryInfo(Diary.fromJson(info[0]));
 
-    print(diaryInfo.value.date);
     var year = diaryInfo.value.date.substring(0, 4);
     var month = diaryInfo.value.date.substring(4, 6);
     var day = diaryInfo.value.date.substring(6, 8);
@@ -68,11 +66,9 @@ class DiaryController extends GetxController {
 
   // 상세페이지 주식 목록
   void getDayStockList(int id) async {
-    print(id);
     final db = await DatabaseHelper().database;
     var info =
         await db.rawQuery('SELECT * FROM stock_list WHERE diary_id = $id');
-    print(info.toString());
     stockList(info.map((e) => Stock.fromJsonDb(e)).toList());
   }
 

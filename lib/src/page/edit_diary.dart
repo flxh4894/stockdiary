@@ -72,14 +72,14 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
             for (int i = 0; i < stockList.length; i++) _stockList(i),
             addButton(),
             _divider(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: TextFormField(
-                decoration: InputDecoration(
-                    hintText: '종목명을 입력하세요. ex) #테슬라 #삼성전자',
-                    border: InputBorder.none),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 16),
+            //   child: TextFormField(
+            //     decoration: InputDecoration(
+            //         hintText: '종목명을 입력하세요. ex) #테슬라 #삼성전자',
+            //         border: InputBorder.none),
+            //   ),
+            // ),
             _divider(),
           ],
         ),
@@ -119,6 +119,7 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
                 child: TextFormField(
                   initialValue: stockList[index].name,
                   decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.title_outlined),
                       border: InputBorder.none, hintText: '종목명을 입력하세요.'),
                   onChanged: (value) => stockList[index].name = value,
                 ),
@@ -155,15 +156,21 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
           ),
           TextFormField(
             onChanged: (value) {
-              if(value == '')
-                value = '0';
-              stockList[index].price = int.parse(value);
+              setState(() {
+                if(value == "")
+                  stockList[index].price = 0;
+                else
+                  stockList[index].price = int.parse(value);
+              });
             },
             keyboardType: TextInputType.number,
             initialValue: stockList[index].price.toString(),
             decoration: InputDecoration(
+                prefixIcon: Icon(Icons.paid_outlined),
                 border: InputBorder.none, hintText: '가격을 입력하세요.'),
           ),
+          Center(child: Text("( ${_utils.priceFormat(stockList[index].price)} )")),
+          SizedBox(height: 10),
           TextFormField(
             onChanged: (value) {
               if(value == '')
@@ -173,6 +180,7 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
             keyboardType: TextInputType.number,
             initialValue: stockList[index].amount.toString(),
             decoration: InputDecoration(
+                prefixIcon: Icon(Icons.add_shopping_cart),
                 border: InputBorder.none, hintText: '수량을 입력하세요.'),
           ),
           _divider()
@@ -229,6 +237,79 @@ class _EditDiaryPageState extends State<EditDiaryPage> {
         actions: [
           TextButton(
               onPressed: () {
+                if(_textDateController.text == ""){
+                  Get.defaultDialog(
+                      barrierDismissible: true,
+                      title: '',
+                      textCancel: '확인',
+                      content: Center(
+                        child: Text('날짜를 입력해 주세요.'),
+                      )
+                  );
+                  return;
+                }
+
+                if(_textController.text == ""){
+                  Get.defaultDialog(
+                      barrierDismissible: true,
+                      title: '',
+                      textCancel: '확인',
+                      content: Center(
+                        child: Text('내용을 입력해 주세요.'),
+                      )
+                  );
+                  return;
+                }
+
+                if(_textTitleController.text == ""){
+                  Get.defaultDialog(
+                      barrierDismissible: true,
+                      title: '',
+                      textCancel: '확인',
+                      content: Center(
+                        child: Text('제목을 입력해 주세요.'),
+                      )
+                  );
+                  return;
+                }
+
+                for(Stock stock in stockList) {
+                  if(stock.name == ""){
+                    Get.defaultDialog(
+                        barrierDismissible: true,
+                        title: '',
+                        textCancel: '확인',
+                        content: Center(
+                          child: Text('종목명을 입력해 주세요.'),
+                        )
+                    );
+                    return;
+                  }
+                  if(stock.price == 0){
+                    Get.defaultDialog(
+                        barrierDismissible: true,
+                        title: '',
+                        textCancel: '확인',
+                        content: Center(
+                          child: Text('가격을 입력해 주세요.'),
+                        )
+                    );
+                    return;
+                  }
+                  if(stock.amount == 0){
+                    Get.defaultDialog(
+                        barrierDismissible: true,
+                        title: '',
+                        textCancel: '확인',
+                        content: Center(
+                          child: Text('수량을 입력해 주세요.'),
+                        )
+                    );
+                    return;
+                  }
+                }
+
+
                 var id = _diaryController.diaryInfo.value.id;
                 Diary diary = Diary(
                   title: _textTitleController.text,

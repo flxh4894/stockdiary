@@ -24,12 +24,7 @@ class DiaryDetail extends StatelessWidget {
           () => Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // _datePicker(),
               showDate(),
-              // Padding(
-              //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              //     child: Image.network(
-              //         'https://t1.daumcdn.net/cfile/tistory/264DE23F5934F37735')),
               _description(),
               DividerComponent(),
               for (int i = 0; i < _diaryController.stockList.length; i++)

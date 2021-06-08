@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
+import 'package:stockdiary/src/admob/ad_banner.dart';
 import 'package:stockdiary/src/controller/stock_controller.dart';
 import 'package:stockdiary/src/model/stock.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import 'ad_test.dart';
-
 class StockChart extends StatefulWidget {
-
   @override
   _StockChartState createState() => _StockChartState();
 }
@@ -60,8 +59,7 @@ class _StockChartState extends State<StockChart> {
           ),
         ),
         SizedBox(height: 5),
-        AdTestPage(),
-        SizedBox(height: 5),
+        AdMobBannerAd(adSize: AdSize.largeBanner,)
       ]
     );
   }

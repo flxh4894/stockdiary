@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:stockdiary/src/helper/db_helper.dart';
 import 'package:stockdiary/src/model/memo.dart';
@@ -54,7 +53,6 @@ class CalendarController extends GetxController {
     memoListDay.clear();
     memoList.forEach((e) {
       if(_day == e.date) {
-        print(e.toMap());
         memoListDay.add(e);
       }
     });

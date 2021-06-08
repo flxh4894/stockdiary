@@ -16,6 +16,7 @@ class NewDiaryPage extends StatefulWidget {
 }
 
 class _NewDiaryPageState extends State<NewDiaryPage> {
+  final CommonUtils _utils = CommonUtils();
   final DiaryController _diaryController = Get.put(DiaryController());
   final TextEditingController _textController = TextEditingController();
   final TextEditingController _textDateController = TextEditingController();
@@ -67,7 +68,7 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
                   border: InputBorder.none),
             ),
           ),
-          saveButton()
+          saveButton(),
         ],
       ),
     );
@@ -99,6 +100,7 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
               Expanded(
                 child: TextFormField(
                   decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.title_outlined),
                       border: InputBorder.none, hintText: '종목명을 입력하세요.'),
                   onChanged: (value) => stockList[index].name = value,
                 ),
@@ -134,15 +136,26 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
                     .toList()),
           ),
           TextFormField(
-            onChanged: (value) => stockList[index].price = int.parse(value),
+            onChanged: (value) {
+              setState(() {
+                if(value == "")
+                  stockList[index].price = 0;
+                else
+                  stockList[index].price = int.parse(value);
+              });
+            },
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
+                prefixIcon: Icon(Icons.paid_outlined),
                 border: InputBorder.none, hintText: '가격을 입력하세요.'),
           ),
+          Center(child: Text("( ${_utils.priceFormat(stockList[index].price)} )")),
+          SizedBox(height: 10),
           TextFormField(
             onChanged: (value) => stockList[index].amount = int.parse(value),
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
+                prefixIcon: Icon(Icons.add_shopping_cart),
                 border: InputBorder.none, hintText: '수량을 입력하세요.'),
           ),
           _divider()
@@ -190,6 +203,78 @@ class _NewDiaryPageState extends State<NewDiaryPage> {
   Widget saveButton() {
     return GestureDetector(
       onTap: () {
+        if(_textDateController.text == ""){
+          Get.defaultDialog(
+              barrierDismissible: true,
+              title: '',
+              textCancel: '확인',
+              content: Center(
+                child: Text('날짜를 입력해 주세요.'),
+              )
+          );
+          return;
+        }
+
+        if(_textController.text == ""){
+          Get.defaultDialog(
+              barrierDismissible: true,
+              title: '',
+              textCancel: '확인',
+              content: Center(
+                child: Text('내용을 입력해 주세요.'),
+              )
+          );
+          return;
+        }
+
+        if(_textTitleController.text == ""){
+          Get.defaultDialog(
+              barrierDismissible: true,
+              title: '',
+              textCancel: '확인',
+              content: Center(
+                child: Text('제목을 입력해 주세요.'),
+              )
+          );
+          return;
+        }
+
+        for(Stock stock in stockList) {
+          if(stock.name == ""){
+            Get.defaultDialog(
+                barrierDismissible: true,
+                title: '',
+                textCancel: '확인',
+                content: Center(
+                  child: Text('종목명을 입력해 주세요.'),
+                )
+            );
+            return;
+          }
+          if(stock.price == 0){
+            Get.defaultDialog(
+                barrierDismissible: true,
+                title: '',
+                textCancel: '확인',
+                content: Center(
+                  child: Text('가격을 입력해 주세요.'),
+                )
+            );
+            return;
+          }
+          if(stock.amount == 0){
+            Get.defaultDialog(
+                barrierDismissible: true,
+                title: '',
+                textCancel: '확인',
+                content: Center(
+                  child: Text('수량을 입력해 주세요.'),
+                )
+            );
+            return;
+          }
+        }
+
         _diaryController.insertDiary(
             _textTitleController.text,
             _textController.text,

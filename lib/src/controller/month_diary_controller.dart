@@ -13,7 +13,6 @@ class MonthDiaryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    print('작성시 두번 호출인가요?');
     getMonthDiaryList();
   }
 

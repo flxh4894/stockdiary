@@ -54,11 +54,6 @@ class MonthMemoPage extends StatelessWidget {
               icon: Icon(Icons.chevron_left, size: 30, color: Colors.white),
               onPressed: () => _monthDiaryController.changeDate(-1)),
           DatePickerComponent(now: DateTime.now(),fontColor: Colors.white, fontSize: 18),
-          // Text('${_utils.getYearMonth(now)}',
-          //     style: TextStyle(
-          //         fontSize: 18,
-          //         color: Colors.white,
-          //         fontWeight: FontWeight.bold)),
           IconButton(
               icon: Icon(Icons.chevron_right, size: 30, color: Colors.white),
               onPressed: () => _monthDiaryController.changeDate(1)),
